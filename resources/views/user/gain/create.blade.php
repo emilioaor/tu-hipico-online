@@ -58,7 +58,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($activeRun->horses as $horse)
+                        @foreach($activeRun->orderedHorses() as $horse)
                             <tr>
                                 <td>{{ $horse->public_id . ' - ' . $horse->name }}</td>
                                 <td class="text-center">

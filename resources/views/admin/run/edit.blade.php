@@ -66,7 +66,7 @@
                 </thead>
 
                 <tbody id="spaceHorses">
-                    @foreach($run->horses as $horse)
+                    @foreach($run->orderedHorses() as $horse)
                         <tr id="row{{ $horse->id }}">
                             <td>
                                 {{ $horse->public_id . ' - ' . $horse->name }}

@@ -25,7 +25,7 @@ class Horse extends Model
      */
     public function runs() {
         return $this->belongsToMany('App\Run', 'run_horse')->withPivot([
-            'horse_id','run_id','status','isGain','static_table'
+            'horse_id','run_id','status','isGain','static_table','order',
         ]);
     }
 

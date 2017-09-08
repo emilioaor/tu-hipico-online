@@ -141,6 +141,7 @@ class RunController extends Controller
             DB::table('run_horse')->where('run_id', $id)->delete();
 
             //  Agrega los caballos seleccionados a la carrera
+            $order = 1;
             foreach ($request->horses as $horseId) {
 
                 $horse = Horse::findOrFail($horseId);
@@ -148,8 +149,11 @@ class RunController extends Controller
                 $staticTable = ! empty($request->staticTable[$horseId]) ? $request->staticTable[$horseId] : 0;
 
                 $run->horses()->attach($horse, [
-                    'static_table' => $staticTable
+                    'static_table' => $staticTable,
+                    'order' => $order,
                 ]);
+
+                $order++;
             }
 
         DB::commit();

@@ -31,7 +31,7 @@ class Run extends Model
     public function horses()
     {
         return $this->belongsToMany('App\Horse', 'run_horse')->withPivot([
-            'run_id','horse_id','status','isGain','static_table'
+            'run_id','horse_id','status','isGain','static_table','order',
         ]);
     }
 
@@ -140,5 +140,15 @@ class Run extends Model
         }
 
         return $currentHorsesId;
+    }
+
+    /**
+     * Retorna los caballos asociados a la carrera en el mismo
+     * orden que se registraron
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function orderedHorses() {
+        return $this->horses()->orderBy('run_horse.order')->get();
     }
 }

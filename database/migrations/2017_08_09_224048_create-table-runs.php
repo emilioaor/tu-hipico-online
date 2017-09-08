@@ -33,6 +33,7 @@ class CreateTableRuns extends Migration
             $table->string('status', 15)->default(Horse::STATUS_ACTIVE);
             $table->boolean('isGain')->default(false);
             $table->float('static_table');
+            $table->integer('order');
         });
     }
 
