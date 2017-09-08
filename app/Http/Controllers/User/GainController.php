@@ -112,7 +112,7 @@ class GainController extends Controller
 
         $this->sessionMessage('Ticket registrado');
 
-        return redirect()->route('gains.show', ['gain' => $ticket->id]);
+        return redirect()->route('gains.create');
     }
 
     /**
@@ -299,7 +299,7 @@ class GainController extends Controller
             foreach ($run->horses as $horse) {
                 $data[] = [
                     'horseId' => $horse->id,
-                    'static_table' => $horse->pivot->static_table,
+                    'static_table' => (int) $horse->pivot->static_table,
                 ];
             }
 

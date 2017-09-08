@@ -28,11 +28,11 @@
                         <p>{{ $activeRun->public_id }}</p>
 
                         <label for="">Caballos registrados</label>
-                        @foreach($activeRun->horses as $horse)
+                        @foreach($activeRun->orderedHorses() as $horse)
                             <p>{{ $horse->public_id . ' - ' . $horse->name }}</p>
                         @endforeach
 
-                        <a href="{{ route('gains.create') }}" class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Agregar ticket</a>
+                        <a href="{{ route('gains.create') }}" class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Agregar ticket (F4)</a>
 
                     @else
                         <p>En este momento todas las carreras estan cerradas. Solo podrá registrar tickets mientras la carrera este abierta.</p>
@@ -79,4 +79,18 @@
 
     </div>
 
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(document).keydown(function (evt) {
+                if (evt.keyCode === 115) {
+                    location.href = '{{ route('gains.create') }}';
+                }
+            });
+        });
+    </script>
 @endsection
