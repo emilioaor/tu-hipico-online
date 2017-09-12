@@ -46,4 +46,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'authAdmin'], function() {
     Route::get('runs/{run}/setGained/{horse}', ['uses' => 'Admin\RunController@setGained', 'as' => 'runs.setGained']);
     Route::get('runs/{run}/getTickets', ['uses' => 'Admin\RunController@ticketsForRunRest', 'as' => 'runs.tickets.rest']);
     Route::put('runs/{run}/updateTable', ['uses' => 'Admin\RunController@updateTable', 'as' => 'runs.updateTable']);
+    Route::put('runs/{run}/updateDividend', ['uses' => 'Admin\RunController@updateDividend', 'as' => 'runs.updateDividend']);
 });

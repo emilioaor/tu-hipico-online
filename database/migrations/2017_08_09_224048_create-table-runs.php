@@ -21,6 +21,7 @@ class CreateTableRuns extends Migration
             $table->string('status', 15);
             $table->integer('hippodrome_id')->unsigned();
             $table->foreign('hippodrome_id')->references('id')->on('hippodromes');
+            $table->float('dividend');
             $table->timestamps();
         });
 

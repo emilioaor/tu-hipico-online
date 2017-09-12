@@ -48,6 +48,29 @@
 
     </div>
 
+    <div class="row">
+
+        <form action="{{ route('runs.updateDividend', ['run' => $run->id]) }}" method="post">
+
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+
+            <div class="col-xs-12">
+                <label for="dividend">Dividendo</label>
+            </div>
+            <div class="col-xs-8 col-sm-3">
+                <input type="number" id="dividend" name="dividend" class="form-control" value="{{ $run->dividend }}" min="0" placeholder="Dividendo" required>
+            </div>
+            <div class="col-xs-4 col-xs-1">
+                <button class="btn btn-success">
+                    <i class="fa fa-fw fa-save"></i>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
     <h4>Caballos registrados a esta carrera</h4>
 
     <form action="{{ route('runs.updateTable', ['run' => $run->id]) }}" method="post">

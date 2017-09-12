@@ -373,4 +373,23 @@ class RunController extends Controller
         return redirect()->route('runs.show', ['run' => $id]);
     }
 
+    /**
+     * Actualiza el dividendo para una carrera
+     *
+     * @param $runId
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateDividend($runId, Request $request) {
+
+        $run = Run::findOrFail($runId);
+
+        $run->dividend = $request->dividend;
+        $run->save();
+
+        $this->sessionMessage('Dividendo actualizado');
+
+        return redirect()->route('runs.show', ['run' => $runId]);
+    }
+
 }

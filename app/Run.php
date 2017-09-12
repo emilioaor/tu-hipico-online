@@ -14,7 +14,7 @@ class Run extends Model
     protected $table = 'runs';
 
     protected $fillable = [
-        'public_id', 'date', 'status', 'hippodrome_id'
+        'public_id', 'date', 'status', 'hippodrome_id', 'dividend'
     ];
 
     public function __construct(array $attributes = [])
