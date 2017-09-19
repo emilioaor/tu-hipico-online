@@ -10,6 +10,9 @@ class Ticket extends Model
     /** Estatus de tickets */
     const STATUS_ACTIVE = 'Activo';
     const STATUS_NULL = 'Anulado';
+    const STATUS_PAY = 'Pagado';
+
+    const GAIN_PRICE = 500;
 
     protected $table = 'tickets';
 
@@ -163,5 +166,73 @@ class Ticket extends Model
         }
 
         return false;
+    }
+
+    /**
+     * Retorna el caballo ganador del ticket
+     *
+     * @return Model|null|static
+     */
+    public function getHorseGain() {
+        $horseGain = TicketDetail::select('horses.id')
+            ->join('tickets', 'ticket_id', '=', 'tickets.id')
+            ->join('runs', 'tickets.run_id','=', 'run_id')
+            ->join('run_horse', 'runs.id', '=', 'run_horse.run_id')
+            ->join('horses', 'horses.id', '=', 'run_horse.horse_id')
+            ->where('runs.id', $this->run_id)
+            ->where('tickets.id', $this->id)
+            ->where('run_horse.isGain', true)
+            ->first()
+        ;
+
+        return $horseGain;
+    }
+
+    /**
+     * Verifica si un ticket es ganador
+     *
+     * @return bool
+     */
+    public function isGain() {
+        $horseGain = $this->getHorseGain();
+
+        if (! $horseGain) {
+            return false;
+        }
+
+        foreach ($this->ticketDetails as $detail) {
+            if ($detail->horse_id === $horseGain->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Indica el monto a pagar al ganador del ticket
+     *
+     * @return int
+     */
+    public function payAmount() {
+        $horseGain = $this->getHorseGain();
+
+        if (! $horseGain) {
+            return 0;
+        }
+
+        foreach ($this->ticketDetails as $detail) {
+            if ($detail->horse_id === $horseGain->id) {
+                $gainAmount = $detail->gain_amount;
+            }
+        }
+
+        $countGains = $gainAmount / Ticket::GAIN_PRICE;
+        $dividend = $this->run->dividend;
+        $bonus = $this->run->bonus;
+
+        $amount = ($dividend + $bonus) * $countGains;
+
+        return $amount;
     }
 }

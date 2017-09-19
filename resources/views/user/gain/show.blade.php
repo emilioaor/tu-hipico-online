@@ -38,8 +38,10 @@
                     <label for="">Estatus</label>
                     @if($ticket->status === \App\Ticket::STATUS_ACTIVE)
                         <p class="text-success"><strong>{{ $ticket->status }}</strong></p>
-                    @else
+                    @elseif($ticket->status === \App\Ticket::STATUS_NULL)
                         <p class="text-danger"><strong>{{ $ticket->status }}</strong></p>
+                    @elseif($ticket->status === \App\Ticket::STATUS_PAY)
+                        <p class="text-success"><strong>{{ $ticket->status }}</strong></p>
                     @endif
                 </div>
             </div>
@@ -51,6 +53,15 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="">Monto a pagar</label>
+                    <p>{{ number_format($ticket->payAmount(), 2, ',', '.') }}</p>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -142,6 +153,20 @@
                 <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
                     <i class="fa fa-fw fa-remove"></i> Anular ticket
                 </button>
+            @endif
+
+            @if($ticket->status === \App\Ticket::STATUS_ACTIVE && $ticket->isGain())
+                <form
+                    action="{{ route('gains.payTicket', ['gain' => $ticket->id]) }}"
+                    method="post"
+                    style="display: inline-block;">
+
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button class="btn btn-primary btn-lg">
+                            <i class="fa fa-fw fa-money"></i> Pagar ticket
+                        </button>
+                </form>
             @endif
 
             @if(! $ticket->isPrintSpooler())

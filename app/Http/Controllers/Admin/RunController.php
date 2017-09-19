@@ -385,9 +385,10 @@ class RunController extends Controller
         $run = Run::findOrFail($runId);
 
         $run->dividend = $request->dividend;
+        $run->bonus = $request->bonus;
         $run->save();
 
-        $this->sessionMessage('Dividendo actualizado');
+        $this->sessionMessage('Valores actualizado');
 
         return redirect()->route('runs.show', ['run' => $runId]);
     }

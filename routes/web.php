@@ -24,6 +24,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'authUser'], function() {
     Route::get('gains/{gain}/downloadTicket', ['uses' => 'User\GainController@downloadTicket', 'as' => 'gains.downloadTicket']);
     Route::post('gains/{gain}/print', ['uses' => 'User\GainController@printTicket', 'as' => 'gains.printTicket']);
     Route::get('gains/valueInTables/rest', ['uses' => 'User\GainController@valueInTablesRest', 'as' => 'gains.valueInTables.rest']);
+    Route::put('gains/{gain}/payTicket', ['uses' => 'User\GainController@payTicket', 'as' => 'gains.payTicket']);
     Route::get('config', ['uses' => 'User\ConfigController@config', 'as' => 'user.config']);
     Route::put('config/{user}/changePassword', ['uses' => 'User\ConfigController@changePassword', 'as' => 'user.config.changePassword']);
     Route::get('printSpooler', ['uses' => 'User\PrintSpoolerController@index', 'as' => 'user.printSpooler']);

@@ -125,11 +125,6 @@ class GainController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
 
-        /*PDF::loadView('pdf.ticket', ['ticket' => $ticket])
-            ->setPaper('a7')
-            ->save(__DIR__ . '/../../../../public/tickets/' . $ticket->public_id . '.pdf')
-        ;*/
-
         return view('user.gain.show')->with('ticket', $ticket);
     }
 
@@ -339,5 +334,21 @@ class GainController extends Controller
         $this->sessionMessage('Ticket agregado a la cola de impresión');
 
         return redirect()->route('gains.show', ['ticket' => $ticketId]);
+    }
+
+    /**
+     * Marca un ticket como pagado
+     *
+     * @param $ticketId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function payTicket($ticketId) {
+        $ticket = Ticket::findOrFail($ticketId);
+        $ticket->status = Ticket::STATUS_PAY;
+        $ticket->save();
+
+        $this->sessionMessage('Ticket pagado');
+
+        return redirect()->route('gains.show', ['gain' => $ticketId]);
     }
 }

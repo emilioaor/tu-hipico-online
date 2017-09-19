@@ -48,9 +48,9 @@
                 <tr>
                     <td>{{ $ticket->public_id }}</td>
                     <td>
-                        @if($ticket->status === \App\Ticket::STATUS_ACTIVE)
+                        @if($ticket->status === \App\Ticket::STATUS_ACTIVE || $ticket->status === \App\Ticket::STATUS_PAY)
                             <strong><span class="text-success">{{ $ticket->status }}</span></strong>
-                        @else
+                        @elseif($ticket->status === \App\Ticket::STATUS_NULL)
                             <strong><span class="text-danger">{{ $ticket->status }}</span></strong>
                         @endif
                     </td>
