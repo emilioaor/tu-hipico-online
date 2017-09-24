@@ -68,6 +68,8 @@ class RunController extends Controller
     public function store(CreateRunRequest $request)
     {
         $run = new Run($request->all());
+        $run->dividend = 0;
+        $run->bonus = 0;
         $run->save();
 
         $this->sessionMessage('Carrera registrada');
