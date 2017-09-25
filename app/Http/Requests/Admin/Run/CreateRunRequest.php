@@ -24,7 +24,7 @@ class CreateRunRequest extends FormRequest
     public function rules()
     {
         return [
-            'public_id' => 'required|unique:runs|max:20',
+            'public_id' => 'required|max:20',
             'hippodrome_id' => 'required',
             'date' => 'required',
         ];

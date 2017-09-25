@@ -16,7 +16,7 @@ class CreateTableRuns extends Migration
     {
         Schema::create('runs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('public_id', 20)->unique();
+            $table->string('public_id', 20);
             $table->dateTime('date');
             $table->string('status', 15);
             $table->integer('hippodrome_id')->unsigned();
