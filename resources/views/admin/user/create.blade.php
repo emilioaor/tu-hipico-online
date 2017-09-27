@@ -43,6 +43,13 @@
                 </div>
             </div>
 
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="print_code">Código de impresión</label>
+                    <input type="number"  class="form-control" id="print_code" name="print_code" placeholder="Código de impresión" required>
+                </div>
+            </div>
+
         </div>
 
         <div class="form-group">

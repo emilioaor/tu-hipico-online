@@ -28,7 +28,8 @@ class CreateUserRequest extends FormRequest
             'name' => 'required|max:50',
             'newPassword1' => 'required|min:6|max:20',
             'newPassword2' => 'required|min:6|max:20',
-            'top_sale' => 'required'
+            'top_sale' => 'required',
+            'print_code' => 'required|between:6,7|unique:users',
         ];
     }
 
@@ -46,7 +47,10 @@ class CreateUserRequest extends FormRequest
             'newPassword2.required' => 'La contraseña 2 es requerido',
             'newPassword2.min' => 'La contraseña 2 debe poseer al menos 6 caracteres',
             'newPassword2.max' => 'La contraseña 2 no puede superar los 20 caracteres',
-            'top_sale.required' => 'El tope en ventas es requerido'
+            'top_sale.required' => 'El tope en ventas es requerido',
+            'print_code.required' => 'El código de impresión es requerido',
+            'print_code.between' => 'El código de impresión debe contener entre :min y :max caracteres',
+            'print_code.unique' => 'El código de impresión esta siendo usado',
         ];
     }
 }

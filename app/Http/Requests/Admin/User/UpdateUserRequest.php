@@ -27,7 +27,8 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|max:50',
             'newPassword1' => 'nullable|min:6|max:20',
             'newPassword2' => 'nullable|min:6|max:20',
-            'top_sale' => 'required'
+            'top_sale' => 'required',
+            'print_code' => 'required|between:6,7',
         ];
     }
 
@@ -41,6 +42,8 @@ class UpdateUserRequest extends FormRequest
             'newPassword1.max' => 'La contraseña 1 no puede superar los 20 caracteres',
             'newPassword2.max' => 'La contraseña 2 no puede superar los 20 caracteres',
             'top_sale.required' => 'El tope en ventas es requerido',
+            'print_code.required' => 'El código de impresión es requerido',
+            'print_code.between' => 'El código de impresión debe contener entre :min y :max caracteres',
         ];
     }
 }

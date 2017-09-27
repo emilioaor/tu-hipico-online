@@ -14,4 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::get('{ticket}/ticketText', ['uses' => 'ApiController@getTicketText', 'as' => 'api.ticketText']);
-Route::get('{user}/printSpooler', ['uses' => 'ApiController@getPrintSpooler', 'as' => 'api.ticketText']);
+Route::get('{printCode}/printSpooler', ['uses' => 'ApiController@getPrintSpooler', 'as' => 'api.ticketText']);

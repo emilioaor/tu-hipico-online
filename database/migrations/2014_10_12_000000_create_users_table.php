@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('level', 10);
             $table->float('top_sale', 15,2);
             $table->string('status', 15)->default(User::STATUS_ACTIVE);
+            $table->string('print_code', 7)->unique();
             $table->rememberToken();
             $table->timestamps();
         });
