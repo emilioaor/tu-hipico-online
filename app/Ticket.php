@@ -222,7 +222,7 @@ class Ticket extends Model
         }
 
         foreach ($this->ticketDetails as $detail) {
-            if ($detail->horse_id === $horseGain->id) {
+            if ($detail->horse_id == $horseGain->id) {
                 $gainAmount = $detail->gain_amount;
             }
         }
