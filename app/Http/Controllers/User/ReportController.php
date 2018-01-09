@@ -45,16 +45,20 @@ class ReportController extends Controller
             ->get()
         ;
 
-        $total = 0;
+        $total = $totalPay = 0;
         foreach ($tickets as $ticket) {
             $total += $ticket->totalActiveAmount();
+            $totalPay += $ticket->payAmount();
         }
+        $balance = $total - $totalPay;
 
         $pdf = PDF::loadView('pdf.dailyReport', [
             'tickets' => $tickets,
             'start' => $dateStart,
             'end' => $dateEnd,
-            'total' => $total
+            'total' => $total,
+            'totalPay' => $totalPay,
+            'balance' => $balance,
         ])
             ->setPaper('a4', 'landscape');
 

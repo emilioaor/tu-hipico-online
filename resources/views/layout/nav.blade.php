@@ -52,6 +52,9 @@
                     <li>
                         <a href="{{ route('users.index') }}"><i class="fa fa-fw fa-user"></i> Usuarios</a>
                     </li>
+                    <li>
+                        <a href="{{ route('notifications.index') }}"><i class="fa fa-fw fa-info-circle"></i> Notificaciones</a>
+                    </li>
                 @endif
 
                 @if(Auth::user()->level === \App\User::LEVEL_USER)

@@ -18,6 +18,7 @@
         }
         table {
             margin-top: 15px!important;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -36,7 +37,8 @@
                     <th>Estatus</th>
                     <th>Carrera</th>
                     <th>Taquilla</th>
-                    <th>Monto</th>
+                    <th style="text-align: center">Jugado</th>
+                    <th style="text-align: center">Ganado</th>
                 </tr>
             </thead>
 
@@ -48,7 +50,8 @@
                         <td>{{ $ticket->status }}</td>
                         <td>{{ $ticket->run->public_id }}</td>
                         <td>{{ $ticket->user->name }}</td>
-                        <td>{{ number_format($ticket->totalActiveAmount(), '2', ',', '.') }}</td>
+                        <td style="text-align: center">{{ number_format($ticket->totalActiveAmount(), '2', ',', '.') }}</td>
+                        <td style="text-align: center">{{ number_format($ticket->payAmount(), '2', ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -60,7 +63,18 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th>{{ number_format($total, '2', ',', '.') }}</th>
+                    <th style="text-align: center">{{ number_format($total, '2', ',', '.') }}</th>
+                    <th style="text-align: center">{{ number_format($totalPay, '2', ',', '.') }}</th>
+                </tr>
+                <tr>
+                    <th>BALANCE</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="2" style="text-align: center">
+                        {{ number_format($balance, '2', ',', '.') }}
+                    </th>
                 </tr>
             </tfoot>
         </table>

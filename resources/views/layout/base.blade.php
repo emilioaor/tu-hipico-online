@@ -28,9 +28,41 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+        .notification-marquee {
+            position: fixed;
+            width: 80%;
+            height: 35px;
+            z-index: 1031;
+            top: 7px;
+            left: 20px;
+            color: #ccc;
+            background-color: #2e2e2e;
+            overflow: hidden;
+            border-radius: 7px;
+        }
+        .notification-marquee p {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            font-size: 16px;
+            overflow: hidden;
+            height: 25px;
+        }
+        @media (max-width: 767px) {
+            .top-nav {
+                display: none;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
+
+<div class="notification-marquee">
+    <p></p>
+</div>
 
 <div id="wrapper">
 
@@ -98,6 +130,59 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 @yield('js')
+
+@if(Auth::check())
+    <script>
+
+
+        var notifications = {!! json_encode(App\Notification::getContentArray()) !!};
+
+        $(window).ready(function() {
+
+            var showNotification = 0;
+            var topNotification = notifications.length;
+            var velocity = 1000 / 80;
+            var movement = 1;
+            initNotification();
+
+            var l;
+            var topL;
+
+            window.setInterval(function () {
+
+                l += movement;
+
+                if (l >= topL) {
+                    showNotification++;
+
+                    if (showNotification > topNotification) {
+                        showNotification = 0;
+                    }
+                    initNotification();
+                }
+
+                moveNotificationTo(l);
+
+            }, velocity)
+
+
+            function initNotification() {
+                $('.notification-marquee p').css('display', 'inline-block');
+                $('.notification-marquee p').html(notifications[showNotification]);
+
+                l = $('.notification-marquee p').width() * -1 - 20;
+                topL = $('.notification-marquee').width();
+
+                moveNotificationTo(l);
+            }
+
+            function moveNotificationTo(to) {
+                $('.notification-marquee p').css('left', to + 'px');
+            }
+        });
+
+    </script>
+@endif
 
 </body>
 

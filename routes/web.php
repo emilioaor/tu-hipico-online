@@ -42,6 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'authAdmin'], function() {
     Route::resource('horses', 'Admin\HorseController');
     Route::resource('runs', 'Admin\RunController');
     Route::resource('hippodromes', 'Admin\HippodromeController');
+    Route::resource('notifications', 'Admin\NotificationController');
     Route::put('runs/{run}/changeStatus', ['uses' => 'Admin\RunController@changeStatus', 'as' => 'runs.changeStatus']);
     Route::put('runs/{run}/retireHorse/{horse}', ['uses' => 'Admin\RunController@retireHorse', 'as' => 'runs.retireHorse']);
     Route::get('runs/{run}/setGained/{horse}', ['uses' => 'Admin\RunController@setGained', 'as' => 'runs.setGained']);
