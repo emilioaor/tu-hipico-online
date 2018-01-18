@@ -231,7 +231,7 @@ class Ticket extends Model
             return 0;
         }
 
-        $amount = ($this->run->dividend + $this->run->bonus) * ($gainAmount / 1000);
+        $amount = ($this->run->dividend + $this->run->bonus) * ($gainAmount / 2500);
 
         return $amount;
     }
