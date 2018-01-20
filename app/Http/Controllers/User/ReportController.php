@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Ticket;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class ReportController extends Controller
@@ -42,8 +44,11 @@ class ReportController extends Controller
         $tickets = Ticket::where('created_at', '>=', $dateStart)
             ->where('created_at', '<=', $dateEnd)
             ->orderBy('created_at', 'DESC')
-            ->get()
         ;
+
+        if (Auth::user()->level !== User::LEVEL_ADMIN) {
+            $tickets->where('user_id', Auth::user()->id);
+        }
 
         $total = $totalPay = 0;
         foreach ($tickets as $ticket) {
@@ -53,7 +58,7 @@ class ReportController extends Controller
         $balance = $total - $totalPay;
 
         $pdf = PDF::loadView('pdf.dailyReport', [
-            'tickets' => $tickets,
+            'tickets' => $tickets->get(),
             'start' => $dateStart,
             'end' => $dateEnd,
             'total' => $total,
