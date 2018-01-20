@@ -50,6 +50,7 @@ class ReportController extends Controller
             $tickets->where('user_id', Auth::user()->id);
         }
 
+        $tickets = $tickets->get();
         $total = $totalPay = 0;
         foreach ($tickets as $ticket) {
             $total += $ticket->totalActiveAmount();
@@ -58,7 +59,7 @@ class ReportController extends Controller
         $balance = $total - $totalPay;
 
         $pdf = PDF::loadView('pdf.dailyReport', [
-            'tickets' => $tickets->get(),
+            'tickets' => $tickets,
             'start' => $dateStart,
             'end' => $dateEnd,
             'total' => $total,
